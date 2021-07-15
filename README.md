@@ -1,5 +1,9 @@
 # ndx-external-resources Extension for NWB
 
+## Status
+
+This extension is intended to facilate evaluation of ExternalResources with NWB. If this proposal for extension to NWB gets merged with the core schema, then this type would be removed and the NWBFile specification updated instead. As such, this extension is not intended for production use.
+
 ## Installation
 
 
