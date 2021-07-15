@@ -7,7 +7,8 @@ namespaces:
   name: ndx-external-resources
   schema:
   - namespace: core
+  - namespace: hdmf-experimental
     neurodata_types:
-    - ElectricalSeries
+    - ExternalResources
   - source: ndx-external-resources.extensions.yaml
   version: 0.1.0

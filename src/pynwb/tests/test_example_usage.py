@@ -1,11 +1,3 @@
-# ndx-external-resources Extension for NWB
-
-## Installation
-
-
-## Usage
-
-```python
 # TODO move these functions to PyNWB core
 
 import datetime
@@ -65,6 +57,3 @@ with NWBHDF5IO(path, mode='r', load_namespaces=True) as io:
     read_table = nwbfile.acquisition['test_table']
     print(nwbfile.external_resources.get_object_resources(read_container, 'unit'))
     # TODO expand this example after paths for objects/keys is improved
-```
-
-This extension was created using [ndx-template](https://github.com/nwb-extensions/ndx-template).

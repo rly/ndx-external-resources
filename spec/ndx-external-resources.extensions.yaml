@@ -1,8 +1,10 @@
 groups:
-- neurodata_type_def: TetrodeSeries
-  neurodata_type_inc: ElectricalSeries
-  doc: An extension of ElectricalSeries to include the tetrode ID for each time series.
-  attributes:
-  - name: trode_id
-    dtype: int32
-    doc: The tetrode ID.
+- neurodata_type_def: ERNWBFile
+  neurodata_type_inc: NWBFile
+  doc: 'Extension of the NWBFile class to allow placing the new external resources
+    group. NOTE: If this proposal for extension to NWB gets merged with the core schema,
+    then this type would be removed and the NWBFile specification updated instead.'
+  groups:
+  - name: .external_resources
+    neurodata_type_inc: ExternalResources
+    doc: External resources used in this file.

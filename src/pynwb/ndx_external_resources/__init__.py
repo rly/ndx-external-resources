@@ -1,5 +1,5 @@
 import os
-from pynwb import load_namespaces, get_class
+from pynwb import load_namespaces
 
 # Set path of the namespace.yaml file to the expected install location
 ndx_external_resources_specpath = os.path.join(
@@ -21,6 +21,5 @@ if not os.path.exists(ndx_external_resources_specpath):
 # Load the namespace
 load_namespaces(ndx_external_resources_specpath)
 
-# TODO: import your classes here or define your class using get_class to make
-# them accessible at the package level
-TetrodeSeries = get_class('TetrodeSeries', 'ndx-external-resources')
+from . import io as __io  # noqa: F401,E402
+from .ernwbfile import ERNWBFile  # noqa: F401,E402
