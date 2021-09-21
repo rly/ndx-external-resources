@@ -21,5 +21,6 @@ if not os.path.exists(ndx_external_resources_specpath):
 # Load the namespace
 load_namespaces(ndx_external_resources_specpath)
 
-from . import io as __io  # noqa: F401,E402
+from .resources import ExternalResources
 from .ernwbfile import ERNWBFile  # noqa: F401,E402
+from . import io as __io  # noqa: F401,E402

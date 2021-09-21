@@ -1,7 +1,7 @@
 from pynwb import register_class
 from pynwb.file import NWBFile
 from hdmf.utils import docval, get_docval, call_docval_func, popargs
-from hdmf.common import ExternalResources  # TODO import this from pynwb after ExternalResources is aliased in PyNWB
+from . import ExternalResources  # TODO import this from pynwb after ExternalResources is aliased in PyNWB
 
 
 @register_class('ERNWBFile', 'ndx-external-resources')

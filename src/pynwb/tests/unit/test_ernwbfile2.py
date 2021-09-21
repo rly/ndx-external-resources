@@ -51,7 +51,7 @@ class TestERNWBFile(TestCase):
 
         nwbfile.external_resources.add_ref(
             container=container,
-            field='unit',
+            attribute='unit',
             key='meters',
             resource_name='SI_Ontology',
             resource_uri='',
@@ -61,7 +61,7 @@ class TestERNWBFile(TestCase):
 
         nwbfile.external_resources.add_ref(
             container=table,
-            field='test_col',
+            attribute='test_col',
             key='Mouse',
             resource_name='NCBI_Taxonomy',
             resource_uri='https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi',
@@ -76,6 +76,15 @@ class TestERNWBFile(TestCase):
         self.assertEqual(len(nwbfile.external_resources.entities), 2)
 
         self.assertEqual(nwbfile.external_resources.objects[0],
-                         (container.object_id, 'unit'))
+                         (container.object_id, 'TimeSeries/data/unit', ''))
         self.assertEqual(nwbfile.external_resources.objects[1],
-                         (table.object_id, 'test_col'))
+                         (table.columns[0].object_id, '', ''))
+
+    def test_type_map(self):
+        nwbfile = ERNWBFile(
+            session_description='session_description',
+            identifier='identifier',
+            session_start_time=datetime.datetime.now(datetime.timezone.utc)
+        )
+        _type_map = nwbfile.external_resources.type_map
+        self.assertEqual(_type_map.namespace_catalog.namespaces, ('hdmf-common', 'hdmf-experimental', 'core', 'ndx-external-resources'))
