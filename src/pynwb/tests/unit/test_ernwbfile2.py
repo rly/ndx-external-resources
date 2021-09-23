@@ -78,7 +78,7 @@ class TestERNWBFile(TestCase):
         self.assertEqual(nwbfile.external_resources.objects[0],
                          (container.object_id, 'TimeSeries/data/unit', ''))
         self.assertEqual(nwbfile.external_resources.objects[1],
-                         (table.columns[0].object_id, '', ''))
+                         (table['test_col'].object_id, '', ''))
 
     def test_type_map(self):
         nwbfile = ERNWBFile(
