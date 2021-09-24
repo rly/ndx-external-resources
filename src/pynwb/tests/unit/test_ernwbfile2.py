@@ -7,7 +7,7 @@ from pynwb import TimeSeries
 from pynwb.core import DynamicTable
 from pynwb.testing import TestCase
 
-from ndx_external_resources import ERNWBFile, ExternalResources
+from ndx_external_resources import ERNWBFile, NWBExternalResources
 
 
 class TestERNWBFile(TestCase):
@@ -19,7 +19,7 @@ class TestERNWBFile(TestCase):
             identifier='identifier',
             session_start_time=datetime.datetime.now(datetime.timezone.utc)
         )
-        self.assertIsInstance(nwbfile.external_resources, ExternalResources)
+        self.assertIsInstance(nwbfile.external_resources, NWBExternalResources)
         self.assertEqual(nwbfile.external_resources.name, '.external_resources')
         self.assertEqual(len(nwbfile.external_resources.objects), 0)
         self.assertEqual(len(nwbfile.external_resources.object_keys), 0)
@@ -84,11 +84,11 @@ class TestERNWBFile(TestCase):
 class TestExternalResources(TestCase):
 
     def test_type_map(self):
-        er = ExternalResources('ER')
+        er = NWBExternalResources('ER')
         self.assertEqual(er.type_map.namespace_catalog.namespaces,
                          ('hdmf-common', 'hdmf-experimental', 'core', 'ndx-external-resources'))
 
     def test_custom_type_map(self):
         type_map = TypeMap()
-        er = ExternalResources('ER', type_map=type_map)
+        er = NWBExternalResources('ER', type_map=type_map)
         self.assertIs(er.type_map, type_map)

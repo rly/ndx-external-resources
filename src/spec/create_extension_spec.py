@@ -26,13 +26,19 @@ def main():
         groups=[
             NWBGroupSpec(
                 name='.external_resources',
-                neurodata_type_inc='ExternalResources',
+                neurodata_type_inc='NWBExternalResources',
                 doc='External resources used in this file.',
             ),
         ],
     )
 
-    new_data_types = [er_nwbfile_spec]
+    nwb_er_spec = NWBGroupSpec(
+        neurodata_type_def='NWBExternalResources',
+        neurodata_type_inc='ExternalResources',
+        doc='A set of four tables for tracking external resource references in a file.',
+    )
+
+    new_data_types = [er_nwbfile_spec, nwb_er_spec]
 
     # export the spec to yaml files in the spec folder
     output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'spec'))

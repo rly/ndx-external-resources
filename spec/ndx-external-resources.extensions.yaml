@@ -6,8 +6,8 @@ groups:
     then this type would be removed and the NWBFile specification updated instead.'
   groups:
   - name: .external_resources
-    neurodata_type_inc: ExternalResources
+    neurodata_type_inc: NWBExternalResources
     doc: External resources used in this file.
 - neurodata_type_def: NWBExternalResources
   neurodata_type_inc: ExternalResources
-  doc: "A set of four tables for tracking external resource references in a file. NOTE: this data type is in beta testing and is subject to change in a later version."
+  doc: A set of four tables for tracking external resource references in a file.
