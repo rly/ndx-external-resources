@@ -87,4 +87,5 @@ class TestERNWBFile(TestCase):
             session_start_time=datetime.datetime.now(datetime.timezone.utc)
         )
         _type_map = nwbfile.external_resources.type_map
-        self.assertEqual(_type_map.namespace_catalog.namespaces, ('hdmf-common', 'hdmf-experimental', 'core', 'ndx-external-resources'))
+        self.assertEqual(_type_map.namespace_catalog.namespaces,
+                         ('hdmf-common', 'hdmf-experimental', 'core', 'ndx-external-resources'))
