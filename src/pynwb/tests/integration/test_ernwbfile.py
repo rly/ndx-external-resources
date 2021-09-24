@@ -2,12 +2,11 @@
 
 import datetime
 
-from hdmf.common import ExternalResources
 from pynwb import NWBHDF5IO, TimeSeries, validate as pynwb_validate
 from pynwb.core import DynamicTable
 from pynwb.testing import TestCase, remove_test_file
 
-from ndx_external_resources import ERNWBFile
+from ndx_external_resources import ERNWBFile, ExternalResources
 
 
 class TestERNWBFileRoundTrip(TestCase):

@@ -2,12 +2,12 @@
 
 import datetime
 
-from hdmf.common import ExternalResources
+from hdmf.build import TypeMap
 from pynwb import TimeSeries
 from pynwb.core import DynamicTable
 from pynwb.testing import TestCase
 
-from ndx_external_resources import ERNWBFile
+from ndx_external_resources import ERNWBFile, ExternalResources
 
 
 class TestERNWBFile(TestCase):
@@ -80,12 +80,15 @@ class TestERNWBFile(TestCase):
         self.assertEqual(nwbfile.external_resources.objects[1],
                          (table['test_col'].object_id, '', ''))
 
+
+class TestExternalResources(TestCase):
+
     def test_type_map(self):
-        nwbfile = ERNWBFile(
-            session_description='session_description',
-            identifier='identifier',
-            session_start_time=datetime.datetime.now(datetime.timezone.utc)
-        )
-        _type_map = nwbfile.external_resources.type_map
-        self.assertEqual(_type_map.namespace_catalog.namespaces,
+        er = ExternalResources('ER')
+        self.assertEqual(er.type_map.namespace_catalog.namespaces,
                          ('hdmf-common', 'hdmf-experimental', 'core', 'ndx-external-resources'))
+
+    def test_custom_type_map(self):
+        type_map = TypeMap()
+        er = ExternalResources('ER', type_map=type_map)
+        self.assertIs(er.type_map, type_map)
