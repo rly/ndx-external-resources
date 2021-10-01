@@ -1,7 +1,7 @@
 from pynwb import register_class
 from pynwb.file import NWBFile
 from hdmf.utils import docval, get_docval, call_docval_func, popargs
-from hdmf.common import ExternalResources  # TODO import this from pynwb after ExternalResources is aliased in PyNWB
+from . import NWBExternalResources  # TODO import this from pynwb after ExternalResources is aliased in PyNWB
 
 
 @register_class('ERNWBFile', 'ndx-external-resources')
@@ -13,7 +13,7 @@ class ERNWBFile(NWBFile):
 
     @docval(*get_docval(NWBFile.__init__),
             {'name': 'external_resources',
-             'type': 'ExternalResources',
+             'type': 'NWBExternalResources',
              'doc': 'The external resources that objects in the file are related to',
              'default': None},)
     def __init__(self, **kwargs):
@@ -22,4 +22,4 @@ class ERNWBFile(NWBFile):
         if external_resources is not None:
             self.external_resources = external_resources
         else:
-            self.external_resources = ExternalResources('.external_resources')
+            self.external_resources = NWBExternalResources('.external_resources')

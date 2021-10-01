@@ -2,12 +2,12 @@
 
 import datetime
 
-from hdmf.common import ExternalResources
+from hdmf.build import TypeMap
 from pynwb import TimeSeries
 from pynwb.core import DynamicTable
 from pynwb.testing import TestCase
 
-from ndx_external_resources import ERNWBFile
+from ndx_external_resources import ERNWBFile, NWBExternalResources
 
 
 class TestERNWBFile(TestCase):
@@ -19,7 +19,7 @@ class TestERNWBFile(TestCase):
             identifier='identifier',
             session_start_time=datetime.datetime.now(datetime.timezone.utc)
         )
-        self.assertIsInstance(nwbfile.external_resources, ExternalResources)
+        self.assertIsInstance(nwbfile.external_resources, NWBExternalResources)
         self.assertEqual(nwbfile.external_resources.name, '.external_resources')
         self.assertEqual(len(nwbfile.external_resources.objects), 0)
         self.assertEqual(len(nwbfile.external_resources.object_keys), 0)
@@ -51,7 +51,7 @@ class TestERNWBFile(TestCase):
 
         nwbfile.external_resources.add_ref(
             container=container,
-            field='unit',
+            attribute='unit',
             key='meters',
             resource_name='SI_Ontology',
             resource_uri='',
@@ -61,7 +61,7 @@ class TestERNWBFile(TestCase):
 
         nwbfile.external_resources.add_ref(
             container=table,
-            field='test_col',
+            attribute='test_col',
             key='Mouse',
             resource_name='NCBI_Taxonomy',
             resource_uri='https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi',
@@ -76,6 +76,19 @@ class TestERNWBFile(TestCase):
         self.assertEqual(len(nwbfile.external_resources.entities), 2)
 
         self.assertEqual(nwbfile.external_resources.objects[0],
-                         (container.object_id, 'unit'))
+                         (container.object_id, 'TimeSeries/data/unit', ''))
         self.assertEqual(nwbfile.external_resources.objects[1],
-                         (table.object_id, 'test_col'))
+                         (table['test_col'].object_id, '', ''))
+
+
+class TestExternalResources(TestCase):
+
+    def test_type_map(self):
+        er = NWBExternalResources('ER')
+        self.assertEqual(er.type_map.namespace_catalog.namespaces,
+                         ('hdmf-common', 'hdmf-experimental', 'core', 'ndx-external-resources'))
+
+    def test_custom_type_map(self):
+        type_map = TypeMap()
+        er = NWBExternalResources('ER', type_map=type_map)
+        self.assertIs(er.type_map, type_map)

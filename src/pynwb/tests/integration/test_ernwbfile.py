@@ -2,12 +2,11 @@
 
 import datetime
 
-from hdmf.common import ExternalResources
 from pynwb import NWBHDF5IO, TimeSeries, validate as pynwb_validate
 from pynwb.core import DynamicTable
 from pynwb.testing import TestCase, remove_test_file
 
-from ndx_external_resources import ERNWBFile
+from ndx_external_resources import ERNWBFile, NWBExternalResources
 
 
 class TestERNWBFileRoundTrip(TestCase):
@@ -31,7 +30,7 @@ class TestERNWBFileRoundTrip(TestCase):
 
         with NWBHDF5IO(self.path, mode='r', load_namespaces=True) as io:
             read_nwbfile = io.read()
-            self.assertIsInstance(read_nwbfile.external_resources, ExternalResources)
+            self.assertIsInstance(read_nwbfile.external_resources, NWBExternalResources)
             self.assertEqual(len(read_nwbfile.external_resources.objects), 0)
             self.assertEqual(len(read_nwbfile.external_resources.object_keys), 0)
             self.assertEqual(len(read_nwbfile.external_resources.keys), 0)
