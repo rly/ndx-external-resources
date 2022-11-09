@@ -102,7 +102,7 @@ class TestExternalResources(TestCase):
         self.assertIs(er.type_map, type_map)
 
 
-class TestTaskSeriesRoundtrip(TestCase):
+class TestERNWBFileRoundtrip(TestCase):
     """Simple roundtrip test for ER."""
 
     def setUp(self):
