@@ -41,7 +41,7 @@ nwbfile.add_acquisition(table)
 
 nwbfile.external_resources.add_ref(
     container=container,
-    field='unit',
+    attribute='unit',
     key='meters',
     resource_name='SI_Ontology',
     resource_uri='',
@@ -51,7 +51,7 @@ nwbfile.external_resources.add_ref(
 
 nwbfile.external_resources.add_ref(
     container=table,
-    field='test_col',
+    attribute='test_col',
     key='Mouse',
     resource_name='NCBI_Taxonomy',
     resource_uri='https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi',
@@ -62,13 +62,10 @@ nwbfile.external_resources.add_ref(
 path = 'test.nwb'
 with NWBHDF5IO(path, mode='w') as io:
     io.write(nwbfile)
-
-with NWBHDF5IO(path, mode='r', load_namespaces=True) as io:
-    read_nwbfile = io.read()
-    read_container = nwbfile.acquisition['test_ts']
-    read_table = nwbfile.acquisition['test_table']
-    print(nwbfile.external_resources.get_object_resources(read_container, 'unit'))
-    # TODO expand this example after paths for objects/keys is improved
+io = NWBHDF5IO(path, mode='r', load_namespaces=True)
+read_nwbfile = io.read()
+read_container = read_nwbfile.acquisition['test_ts']
+read_nwbfile.external_resources.get_object_resources(read_container, 'TimeSeries/data/unit')
 ```
 
 This extension was created using [ndx-template](https://github.com/nwb-extensions/ndx-template).
