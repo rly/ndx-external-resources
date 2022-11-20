@@ -61,14 +61,14 @@ nwbfile.external_resources.add_ref(
 
 path = 'test.nwb'
 with NWBHDF5IO(path, mode='w') as io:
-    with NWBHDF5IO(path, mode='w') as io:
     io.write(nwbfile)
     
 with NWBHDF5IO(path, mode='r', load_namespaces=True) as io:
-read_nwbfile = io.read()
-read_container = read_nwbfile.acquisition['test_ts']
-read_table = read_nwbfile.acquisition['test_table']
-print(read_nwbfile.external_resources.get_object_resources(read_container, 'TimeSeries/data/unit'))
+    read_nwbfile = io.read()
+    read_container = read_nwbfile.acquisition['test_ts']
+    read_table = read_nwbfile.acquisition['test_table']
+    df=read_nwbfile.external_resources.get_object_resources(container=table['test_col'])
+df
 ```
 
 This extension was created using [ndx-template](https://github.com/nwb-extensions/ndx-template).
