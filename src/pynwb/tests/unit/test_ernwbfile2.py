@@ -165,7 +165,8 @@ class TestERNWBFileRoundtrip(TestCase):
             self.assertEqual(len(read_nwbfile.external_resources.resources), 2)
             self.assertEqual(len(read_nwbfile.external_resources.entities), 2)
 
-            self.assertEqual(list(read_nwbfile.external_resources.objects[0]),
-                             list(nwbfile.external_resources.objects[0]))
-            self.assertEqual(list(read_nwbfile.external_resources.objects[1]),
-                             list(nwbfile.external_resources.objects[1]))
+            # self.assertEqual(list(read_nwbfile.external_resources.objects[0]),
+            #                  list(nwbfile.external_resources.objects[0]))
+            # self.assertEqual(list(read_nwbfile.external_resources.objects[1]),
+            #                  list(nwbfile.external_resources.objects[1]))
+            self.assertContainerEqual(read_nwbfile.external_resources, nwbfile.external_resources)
